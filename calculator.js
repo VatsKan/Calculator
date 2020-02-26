@@ -36,7 +36,11 @@
 	function updateInput(){
 		inputString = inputArr.join("");
 		console.log(inputString);
-		inputDisplay.innerHTML = inputString; //shouldn't use innerHTTML according to DOM tutorial
+		if(inputString == ""){
+			inputDisplay.innerHTML = "input"; //shouldn't use innerHTTML
+		}else{ 
+			inputDisplay.innerHTML = inputString; //shouldn't use innerHTTML according to DOM tutorial
+		}
 	}
 	function resetOutput(){
 		outputDisplay.innerHTML="output"; //shouldn't use innerHTTML according to DOM tutorial
@@ -105,7 +109,18 @@
 			}
 		}
 	, false); 
-	
+
+	//adds backspace functionality to calculator (to delete last user input)
+	//I SHOULD CREATE A BUTTON FOR THIS ALSO
+	//(note that keypress doesn't work with backspace so need to use keydown)
+	window.addEventListener("keydown", function(key){
+			if(key.keyCode == 8){
+				resetOutput();
+				inputArr.pop();
+				updateInput();
+			}
+		}
+	, false); 
 	
 	//Sets the output variable to evaluating the input string.
 	//note: oppArr[oppArr.length-1] is the equals button.
@@ -125,8 +140,9 @@
 			outputDisplay.innerHTML = output.toString(); //shouldn't use innerHTTML according to DOM tutorial
 		}else{
 			//console.log(parenthesesCheckString);
-			window.alert("Invalid input. Please try again.")
-		}
+			window.alert("Invalid input. Please try again.");
+		}	
+
 		//Resets input
 		inputArr = []; 
 		inputString = ""; 
@@ -134,16 +150,35 @@
 
 	//These functions check if the user input is valid
 	function inputValid(){
-		//write function that checks if inputString is valid for evaluation
-		//can also add feature that it edits input string if invalid expression is given by interpreting user input
+		if(inputArr.length<1){
+			return false; 
+		}
+
 		let parenthesesCheckString = inputString.replace(/[^()]/g, "");
 		return validParentheses(parenthesesCheckString) && validOp();
 	}
 
-	function validOp(){
-		let operationCheckString = inputString; //NEED TO WRITE THIS FUNCTION TO CHECK THAT VALID OPERATORS ARE USED (E.G. * FOLLOWED BY / FOR EXAMPLE IS NOT USED)
+	function validOp(){ //NEED TO WRITE THIS FUNCTION!! ---HARD --LOTS OF CASES
+
+		let opCheckStr = inputString; 
+		opCheckStr = opCheckStr.replace(/[0-9]/g, "D"); //D stands for digit
+		opCheckStr = opCheckStr.replace(/[()]/g, "P"); //P stands for parenthesis
+		//need to make opCheckStr2 replace all the operations with "O" but divide is special character so does not work!
+
+		if(opCheckStr[0]=="*" || opCheckStr[0]== "/"){
+			return false; 
+			//NEED TO CONSIDER PARENTHESIS ALSO!!! e.g. ((*7+1)) invalid
+		}
+		
+		//Also cannot have any operation at end of string. check if "O" last character of string
+
+		//Another check: if we have two ops in a row: check that they are both of additive type else return false
+		//If two negative signs, replace user input string with a positive sign (or make it invalid input)
+		//If two positive signs, replace user input string with a positive sign
+		//If positive followed by negative or vice versa, replace user input string with a negative sign
+		//Any other cases? --- e.g. parentheses with multiplication between (*(7)).
+		
 		return true;
-		// write!
 	}
 
 	function validParentheses(parens){
@@ -159,7 +194,7 @@
 	    	return false;
 	    }
 	  }
-	  return n == 0;
+	  return (n == 0);
 	}
 
 
