@@ -1,0 +1,75 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	font-size: 16px;
+}
+button{
+	padding: 2rem;
+	font-weight: bold;
+}
+
+
+.calc-border{
+	border-radius: 5%;
+	width: 27rem;
+	height: auto;
+}
+#outer-border{
+	background-color: black;
+	padding: 1rem;
+}
+#inner-border{
+	background-color: white;
+}
+
+
+.display{
+	background-color: white;
+	padding: 1rem;
+	font-size: 1.5rem;
+	color: gray;
+	text-align: right;
+}
+#input{
+	margin: 0rem 1.2rem 0rem 1.2rem;
+	border-bottom-style: dotted;
+}
+#output{
+	margin: 0rem 1.2rem 0rem 1.2rem;
+}
+
+
+#interface{
+	display: flex;
+	background-color: yellow;
+}
+#keypad{
+	background-color: rgb(20, 20, 100);
+	padding: 0.2rem;
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+#operations{
+	background-color: gray;
+	padding: 0.2rem;
+
+	display: flex;
+	//flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.number{
+	margin: 10px;
+		border-radius: 50%;
+		background-color: white;
+}
+.operation{
+	margin: 10px;
+		border-radius: 50%;
+		background-color: white;
+}
